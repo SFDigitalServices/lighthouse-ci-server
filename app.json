@@ -1,14 +1,14 @@
 {
   "repository": "https://github.com/SFDigitalServices/lighthouse-ci-server",
   "addons": [
+    "heroku-postgresql:hobby-dev",
     "papertrail:choklad"
   ],
   "environments": {
     "review": {
       "addons": [
-        "papertrail:choklad",
-        "memcachier:dev",
-        "sentry:f1"
+        "heroku-postgresql:hobby-dev",
+        "papertrail:choklad"
       ]
     }
   }
