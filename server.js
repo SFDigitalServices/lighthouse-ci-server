@@ -1,22 +1,26 @@
 const { createServer } = require('@lhci/server')
+const { NODE_ENV, DATABASE_URL, PORT } = process.env
 
-if (process.env.NODE_ENV !== 'production') {
+if (NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
 console.log('Starting server...')
 
 createServer({
-  port: process.env.PORT,
+  port: PORT,
   storage: {
     storageMethod: 'sql',
     sqlDialect: 'postgres',
     sqlConnectionSsl: true,
-    sqlConnectionUrl: process.env.DATABASE_URL,
-  },
+    sqlConnectionUrl: DATABASE_URL,
+    sqlDialectOptions: {
+      ssl: true
+    }
+  }
 })
-  .then(({port}) => console.log('Listening on port', port))
+  .then(({ port }) => console.log('Listening on port', port))
   .catch(error => {
-    console.log('UH-OH')
+    console.log('UH-OH!')
     throw error
   })
